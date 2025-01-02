@@ -13,8 +13,8 @@ import IconNext from '../../public/NextAndPrevImg/Next.png';
 import IconPrev from '../../public/NextAndPrevImg/Prev.png';
 import DownloadOtherPost from './DownloadOtherPost.tsx';
 
-const img2 = 'https://th.bing.com/th/id/OIP.HXE0J2iLBazIQQX9TXgfFwHaJ4?w=1704&h=2272&rs=1&pid=ImgDetMain';
-const img3 = 'https://programaenlinea.net/wp-content/uploads/2019/04/testing-1.jpg';
+const img2 = '';
+const img3 = '';
 
 const CardBox = styled(Box)(() => ({
   width: '100% ',
@@ -173,7 +173,7 @@ function SliderComponent() {
             >
               {images.map((img) => (
                 <CustomSwiperSlide key={img.id}>
-                  <Img src={img.image} alt={`Slide ${img.id + 1}`} />
+                  <Img src={img.image} alt={`Slide ${img.id }`} />
                   <CustomButton variant="contained">
                     Download
                     <CloudDownloadOutlined />
