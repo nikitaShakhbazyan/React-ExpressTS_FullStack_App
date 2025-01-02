@@ -30,10 +30,10 @@ function HeaderTitle() {
     return (
         <MainBox>
             <TypoTitle variant='h1'>
-                Instagram Downloader
+                Image Downloader
             </TypoTitle>
             <TypoSubtitle >
-                download any instagram posts you want
+                download any image you want
             </TypoSubtitle>
         </MainBox>
     )

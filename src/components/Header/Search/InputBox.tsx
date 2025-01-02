@@ -48,11 +48,31 @@ function InputBox() {
     const path = useInput('');
 
     const handleDownload = async () => {
+        if (!path.value) {
+            console.error("URL is required");
+            return;
+        }
+
         try {
-            const response = await axios.post('http://localhost:3000/fetch-image', { url: path.value });
-            console.log(response.data);
+            const response = await axios.post('http://localhost:3000/fetch-image', 
+                { url: path.value }, 
+                { headers: { 'Content-Type': 'application/json' }, responseType: 'arraybuffer' } // Указываем, что ожидаем бинарный ответ
+            );
+
+            console.log('Response data:', response.data);
+
+            const contentType = response.headers['content-type'];
+            if (contentType && contentType.startsWith('image/')) {
+                const blob = new Blob([response.data], { type: contentType });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'downloaded_image.png';
+                link.click();
+            } else {
+                console.error('Received non-image content:', response.data);
+            }
         } catch (error) {
-            console.error('Error downloading the image:', error);
+            console.error('Error downloading the image:', error.response?.data || error.message);
         }
     };
 
