@@ -1,5 +1,6 @@
 import { Box, styled } from '@mui/material';
-import CardsRow from './CardsRow';
+// import CardsRow from './CardsRow';
+import SliderComponent from '../../SliderComponent/SliderComponent';
 
 const MainBox = styled(Box)(() => ({
   backgroundColor: '#F8F8F8',
@@ -13,7 +14,7 @@ const MainBox = styled(Box)(() => ({
 function Cards() {
   return (
     <MainBox>
-      <CardsRow />
+      <SliderComponent/>
     </MainBox>
   );
 }

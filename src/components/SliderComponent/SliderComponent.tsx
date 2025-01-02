@@ -1,11 +1,48 @@
-import { Box, styled,Button} from '@mui/material';
-import img from '../../public/cards-images/123.jpg'
-import { CloudDownloadOutlined } from '@mui/icons-material';
-import { useState } from 'react';
+import { useRef } from 'react';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+import 'swiper/css/pagination';
+import { Box, styled, Button } from '@mui/material';
+import { EffectCards } from 'swiper/modules';
+import {
+  CloudDownloadOutlined,
+} from '@mui/icons-material';
+import img1 from '../../public/cards-images/123.jpg';
+import IconNext from '../../public/NextAndPrevImg/Next.png';
+import IconPrev from '../../public/NextAndPrevImg/Prev.png';
+import DownloadOtherPost from './DownloadOtherPost.tsx';
 
-const MainBox = styled(Box)(()=> ({
+const img2 = 'https://th.bing.com/th/id/OIP.HXE0J2iLBazIQQX9TXgfFwHaJ4?w=1704&h=2272&rs=1&pid=ImgDetMain';
+const img3 = 'https://programaenlinea.net/wp-content/uploads/2019/04/testing-1.jpg';
 
-}))
+const CardBox = styled(Box)(() => ({
+  width: '100% ',
+  display: 'flex',
+  justifyContent: 'space-evenly',
+  alignItems: 'center',
+  flexDirection: 'row',
+}));
+
+export const MainBox = styled(Box)(() => ({
+  margin: '0 auto',
+  width: '100% ',
+  display: 'flex',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  flexDirection: 'column',
+}));
+
+const Container = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  width: '380px',
+  height: '493px',
+  '@media (max-width: 768px)': {
+    width: '300px',
+  },
+}));
 
 const CustomButton = styled(Button)(() => ({
   borderRadius: '10px',
@@ -13,83 +50,25 @@ const CustomButton = styled(Button)(() => ({
   textTransform: 'none',
   fontFamily: 'Righteous',
   background: 'linear-gradient(97.84deg, #5672FE -7.65%, #8562E9 106.37%)',
-  zIndex: '2',
-  marginTop:'50px'
-}))
-console.log(CustomButton)
-
-const Card = styled(Box)(() => ({
+  marginTop: '30px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  flexWrap: 'wrap',
-  gap: '20px'
+  color: '#f9f9fa',
 }));
 
+type ButtonSwitchProps = {
+  Image : string
+};
 
-const ItemImg = styled(Box)(() => ({
-  width: '380px',
-  height: '493px',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-evenly',
-  alignItems: 'center',
-  position: 'relative',
-  overflow: 'hidden',
-  borderRadius: '10px',
-  cursor: 'pointer',
-  transition: 'box-shadow 0.3s',
-  backgroundColor:'white',
-  '&:hover': {
-    boxShadow: '0px 0px 8px 3px #0000006c',
-  },
-  '& > div:nth-child(1)': {
-    height: '90%',
-    width: '80%',
-    background: 'linear-gradient(65deg, #FB95A7, #B4A9EA, #FB95A7)',
-    left: '-20%',
-    top: '-10%',
-    position: 'absolute',
-    borderRadius: '50%',
+const ButtonSwitch = styled(Button)(({ Image }:ButtonSwitchProps) => ({
+  backgroundImage: `url(${Image})`,
+  backgroundRepeat: 'no-repeat',
+  width: '100%',
+  height: '100%',
+  backgroundPosition: 'center',
+  borderRadius: '50%',
 
-  },
-  '& > div:nth-child(2)': {
-    height: '80%',
-    width: '70%',
-    background: 'linear-gradient(45deg, #76F0C4, #8080FC, #79B9EE)',
-    right: '-12%',
-    top: '-12%',
-    position: 'absolute',
-    borderRadius: '50%',
-
-  },
-  '& > div:nth-child(3)': {
-    height: '65%',
-    width: '80%',
-    background: 'linear-gradient(65deg, #FB95A7, #B4A9EA, #FB95A7)',
-    right: '-20%',
-    bottom: '-15%',
-    position: 'absolute',
-    borderRadius: '50%',
-
-  },
-  '& > div:nth-child(4)': {
-    height: '50%',
-    width: '75%',
-    background: 'linear-gradient(70deg, #0F8CEA, #79B9EE)',
-    left: '-18%',
-    bottom: '-10%',
-    position: 'absolute',
-    borderRadius: '50%',
-
-  },
-  '&::after': {
-    content: '""',
-    position: 'absolute',
-    height: '100%',
-    width: '100%',
-    backdropFilter: 'blur(60px)',
-  },
 }));
 
 const Img = styled('img')(() => ({
@@ -97,34 +76,148 @@ const Img = styled('img')(() => ({
   height: '334px',
   borderRadius: '10px',
   objectFit: 'cover',
-  zIndex: 1,
+  '@media (max-width: 597px)': {
+    width: '220px',
+  },
+  '@media (max-width: 320px)': {
+    width: '150px',
+  },
 }));
 
+type SwitchButtonsProps = {
+  isLeft? : boolean,
+  isRight?: boolean
+};
+
+const SwitchButtons = styled(Button)(({ isLeft, isRight }: SwitchButtonsProps) => ({
+  borderRadius: '50%',
+  width: '62px',
+  height: '62px',
+  fontSize: '20px',
+  textTransform: 'none',
+  fontFamily: 'Righteous',
+  background: 'linear-gradient(97.84deg, #5672FE -7.65%, #8562E9 106.37%)',
+  zIndex: '2',
+  color: '#f9f9fa',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  marginLeft: isLeft ? '350px' : '0',
+  marginRight: isRight ? '350px' : '0',
+
+  '@media (max-width: 597px)': {
+    display: 'none',
+  },
+  '@media (max-width: 768px)': {
+    display: 'none',
+  },
+}));
+
+const CustomSwiper = styled(Swiper)(() => ({
+  width: '380px',
+  height: '493px',
+  '@media (max-width: 597px)': {
+    width: '250px',
+    height: '450px',
+  },
+  '@media (max-width: 320px)': {
+    width: '200px',
+  },
+}));
+
+const CustomSwiperSlide = styled(SwiperSlide)(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '18px',
+  flexDirection: 'column',
+  fontSize: '22px',
+  backgroundColor: '#f9f9fa',
+  boxShadow: 'grey 25px 26px 27px',
+  '@media (max-width: 597px)': {
+    width: '250px',
+  },
+}));
+
+const images = [{ id: 1, image: img1 }, { id: 2, image: img2 }, { id: 3, image: img3 }];
+
 function SliderComponent() {
+  const swiperRef = useRef<SwiperRef>(null);
 
-  const [images, setImages] = useState([
-    '../../public/cards-images/123.jpg', // первое изображение
-    '../../public/cards-images/234.jpg', // второе изображение
-    '/path/to/image3.jpg'  // третье изображение
-  ]);
+  const handleNext = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideNext();
+    }
+  };
 
+  const handlePrev = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slidePrev();
+    }
+  };
+
+  if (images.length > 1) {
+    return (
+      <MainBox>
+        <CardBox>
+          <SwitchButtons isLeft onClick={handlePrev}>
+            <ButtonSwitch Image={IconPrev} />
+          </SwitchButtons>
+          <Container>
+            <CustomSwiper
+              effect="cards"
+              modules={[EffectCards]}
+              className="mySwiper"
+              ref={swiperRef}
+            >
+              {images.map((img) => (
+                <CustomSwiperSlide key={img.id}>
+                  <Img src={img.image} alt={`Slide ${img.id + 1}`} />
+                  <CustomButton variant="contained">
+                    Download
+                    <CloudDownloadOutlined />
+                  </CustomButton>
+
+                </CustomSwiperSlide>
+              ))}
+            </CustomSwiper>
+          </Container>
+          <SwitchButtons isRight onClick={handleNext}>
+            <ButtonSwitch Image={IconNext} />
+          </SwitchButtons>
+        </CardBox>
+        <DownloadOtherPost />
+      </MainBox>
+    );
+  }
 
   return (
     <MainBox>
-      <Card>
-        {images.map((image, index) => (
-          <ItemImg key={index}>
-            <Img src={image} alt={`Image ${index + 1}`} />
-            <CustomButton variant="contained">
-              Download
-              <CloudDownloadOutlined />
-            </CustomButton>
-          </ItemImg>
-        ))}
-      </Card>
+      <CardBox>
+        <Container>
+          <CustomSwiper
+            effect="cards"
+            grabCursor
+            modules={[EffectCards]}
+            className="mySwiper"
+            ref={swiperRef}
+          >
+            {images.map((img) => (
+              <CustomSwiperSlide key={img.id}>
+                <Img src={img.image} alt={`Slide ${img.id + 1}`} />
+                <CustomButton variant="contained">
+                  Download
+                  <CloudDownloadOutlined />
+                </CustomButton>
+              </CustomSwiperSlide>
+            ))}
+          </CustomSwiper>
+        </Container>
+      </CardBox>
+      <DownloadOtherPost />
     </MainBox>
   );
 }
-
 
 export default SliderComponent;
