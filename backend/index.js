@@ -16,7 +16,6 @@ app.post('/fetch-image', async (req, res) => {
     }
 
     try {
-        // Запрос для получения изображения с переданного URL
         const imageResponse = await axios.get(url, {
             responseType: 'arraybuffer',
             headers: {
@@ -24,21 +23,17 @@ app.post('/fetch-image', async (req, res) => {
             }
         });
 
-        // Проверка типа содержимого
         const contentType = imageResponse.headers['content-type'];
         if (!contentType || !contentType.startsWith('image/')) {
             return res.status(400).json({ error: 'Provided URL is not an image' });
         }
 
-        // Используем Jimp для чтения изображения из буфера
         const image = await Jimp.read(imageResponse.data);
 
-        // Конвертируем изображение в формат PNG
         image.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
             if (err) {
                 return res.status(500).json({ error: 'Failed to process image' });
             }
-            // Отправляем изображение в формате PNG
             res.setHeader('Content-Type', 'image/png');
             res.send(buffer);
         });
