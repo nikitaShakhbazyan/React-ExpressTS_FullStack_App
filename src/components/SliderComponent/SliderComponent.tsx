@@ -1,6 +1,7 @@
 import { Box, styled,Button} from '@mui/material';
 import img from '../../public/cards-images/123.jpg'
 import { CloudDownloadOutlined } from '@mui/icons-material';
+import { useState } from 'react';
 
 const MainBox = styled(Box)(()=> ({
 
@@ -101,19 +102,29 @@ const Img = styled('img')(() => ({
 
 function SliderComponent() {
 
+  const [images, setImages] = useState([
+    '../../public/cards-images/123.jpg', // первое изображение
+    '../../public/cards-images/234.jpg', // второе изображение
+    '/path/to/image3.jpg'  // третье изображение
+  ]);
+
+
   return (
-   <MainBox>
-    <Card>
-      <ItemImg>
-        <Img src={img}/>
-        <CustomButton variant='contained'>
-          Download
-          <CloudDownloadOutlined />
-        </CustomButton>
-      </ItemImg>
-    </Card>
-   </MainBox>
+    <MainBox>
+      <Card>
+        {images.map((image, index) => (
+          <ItemImg key={index}>
+            <Img src={image} alt={`Image ${index + 1}`} />
+            <CustomButton variant="contained">
+              Download
+              <CloudDownloadOutlined />
+            </CustomButton>
+          </ItemImg>
+        ))}
+      </Card>
+    </MainBox>
   );
 }
+
 
 export default SliderComponent;
