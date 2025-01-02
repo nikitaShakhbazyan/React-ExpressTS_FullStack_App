@@ -1,5 +1,3 @@
-# HarvestMyImages.com
-
 ## React + TypeScript
 
 - [Vite documentation](https://vitejs.dev/guide/)
