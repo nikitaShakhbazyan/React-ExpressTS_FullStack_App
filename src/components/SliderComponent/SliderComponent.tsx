@@ -85,11 +85,11 @@ const Img = styled('img')(() => ({
 }));
 
 type SwitchButtonsProps = {
-  isLeft? : boolean,
-  isRight?: boolean
+  isleft? : boolean,
+  isright?: boolean
 };
 
-const SwitchButtons = styled(Button)(({ isLeft, isRight }: SwitchButtonsProps) => ({
+const SwitchButtons = styled(Button)(({ isleft, isright }: SwitchButtonsProps) => ({
   borderRadius: '50%',
   width: '62px',
   height: '62px',
@@ -103,8 +103,8 @@ const SwitchButtons = styled(Button)(({ isLeft, isRight }: SwitchButtonsProps) =
   justifyContent: 'center',
   alignItems: 'center',
 
-  marginLeft: isLeft ? '350px' : '0',
-  marginRight: isRight ? '350px' : '0',
+  marginLeft: isleft ? '350px' : '0',
+  marginRight: isright ? '350px' : '0',
 
   '@media (max-width: 597px)': {
     display: 'none',
@@ -112,7 +112,8 @@ const SwitchButtons = styled(Button)(({ isLeft, isRight }: SwitchButtonsProps) =
   '@media (max-width: 768px)': {
     display: 'none',
   },
-}));
+})) as typeof Button; 
+
 
 const CustomSwiper = styled(Swiper)(() => ({
   width: '380px',
@@ -161,7 +162,7 @@ function SliderComponent() {
     return (
       <MainBox>
         <CardBox>
-          <SwitchButtons isLeft onClick={handlePrev}>
+          <SwitchButtons data-isleft={true} onClick={handlePrev}>
             <ButtonSwitch Image={IconPrev} />
           </SwitchButtons>
           <Container>
@@ -183,7 +184,7 @@ function SliderComponent() {
               ))}
             </CustomSwiper>
           </Container>
-          <SwitchButtons isRight onClick={handleNext}>
+          <SwitchButtons data-isright={true} onClick={handleNext}>
             <ButtonSwitch Image={IconNext} />
           </SwitchButtons>
         </CardBox>
