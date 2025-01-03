@@ -20,9 +20,10 @@ const ButtonDownloadOtherPost = styled(Button)(() => ({
     height: '48px',
   },
   '@media (max-width: 768px)': {
-    width: '50%',
+    width: '200px',
     height: '55px',
     marginTop: '20px',
+    marginRight: '480px',
     fontSize: '14px',
 
   },
