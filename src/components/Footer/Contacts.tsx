@@ -27,9 +27,9 @@ function Contacts() {
     <MainBox>
       <ContactItem onClick={handleEmailClick}>Something@mail.ru</ContactItem>
       |
-      <ContactItem onClick={() => handlePhoneClick('+7 (912) 123123123')}>+7 (912) 123123123</ContactItem>
+      <ContactItem onClick={() => handlePhoneClick('+7 (123) 456789010')}>+7 (123) 456789010</ContactItem>
       |
-      <ContactItem onClick={() => handlePhoneClick('+7 (912) 134512364')}>+7 (912) 134512364</ContactItem>
+      <ContactItem onClick={() => handlePhoneClick('+7 (123) 456789010')}>+7 (912) 456789010</ContactItem>
       |
       <ContactItem>Something</ContactItem>
     </MainBox>
