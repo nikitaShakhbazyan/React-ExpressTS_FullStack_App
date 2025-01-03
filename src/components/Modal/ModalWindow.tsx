@@ -33,7 +33,6 @@ const CustomDialogTitle = styled(DialogTitle)(() => ({
     color: 'white',
     fontFamily: 'Righteous',
     fontSize: '24px',
-    maxHeight: '4vh'
 }))
 
 const CustomDialogContent = styled(DialogContent)(() => ({
